@@ -4,6 +4,6 @@
         'prot'=>'3306',
         'username'=>'root',
         'password'=>'',
-        'DBname'=>'test' 
+        'DBname'=>'project' 
     ]
 ?>
