@@ -12,4 +12,3 @@
     
     include __DIR__."/helper.php" ;
  
-mysqli_close($conn);

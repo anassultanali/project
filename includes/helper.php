@@ -1,9 +1,16 @@
 <?php
 
 
+/**
+ * Insert data in database
+ * 
+ * @param string $table
+ * @param array $data
+ * @return array as assoc 
+ */
 
 if (!function_exists('db_create')) {
-    function db_create($table,array $data) {
+    function db_create(string $table,array $data) {
         $sql="INSERT INTO ".$table;
         $columns ="";
         $values = "";
@@ -17,11 +24,20 @@ if (!function_exists('db_create')) {
         $sql .= " (". $columns .") VALUES (" .$values. ");";
         
         $query = mysqli_query($GLOBALS['conn'],$sql);
-        return mysqli_insert_id($GLOBALS['conn']);
-
+        $id = mysqli_insert_id($GLOBALS['conn']);
+        $first = mysqli_query($GLOBALS['conn'],"SELECT * FROM ".$table." WHERE id=".$id);
+        $data =  mysqli_fetch_assoc($first);
+        mysqli_close($GLOBALS['conn']);
+        return $data;
     }
 }
 
-echo db_create('users' , ['name' => 'anas2' ,
-                     'email' => 'anas2.net',
-                     'password' => '123']);
+/**
+ * Update data in database
+ * 
+ * @param string $table
+ * @param array $data
+ * @param int $id 
+ * 
+ * @return array as assoc
+ */
