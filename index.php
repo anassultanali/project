@@ -2,11 +2,9 @@
 require_once __DIR__."/includes/app.php";
 
 
-$data = db_create('users' , ['name' => 'anas5',
-                     'email' => 'anas5.net',
-                     'password' => '123']);
-
-var_dump($data);
-
+$update = update_data('users' ,['name'=>'yasser',
+            'email'=>'yasser@gmail.com',
+            'password'=>'1234'],3);
+var_dump($update);
 
 

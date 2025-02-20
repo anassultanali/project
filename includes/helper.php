@@ -41,3 +41,25 @@ if (!function_exists('db_create')) {
  * 
  * @return array as assoc
  */
+if (!function_exists('update_data')) {
+    function update_data(string $table ,array $data ,int $id){
+        $sql="update ".$table." set ";
+        $column_value ="";
+       
+
+        foreach ($data as $key => $value) {
+            $column_value .= $key."='".$value."'," ;
+        }
+        $column_value = rtrim($column_value,",");
+        $sql .= $column_value." where id=".$id;
+        
+        $query = mysqli_query($GLOBALS['conn'],$sql);
+        $first = mysqli_query($GLOBALS['conn'],"SELECT * FROM ".$table." WHERE id=".$id);
+        $data =  mysqli_fetch_assoc($first);
+        mysqli_close($GLOBALS['conn']);
+        return $data;
+
+    }
+
+}
+
