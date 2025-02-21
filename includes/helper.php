@@ -79,3 +79,20 @@ if (!function_exists('update_data')) {
         return $query;
     }
  }
+
+
+/**
+ * fetch single row from database
+ * 
+ * @param string $table
+ * @param int id
+ */
+
+ if (!function_exists('fetch_data')) {
+    function fetch_data(string $table , int $id) {
+        $query = mysqli_query($GLOBALS['conn'] ,"SELECT * FROM ".$table." WHERE id = ".$id);
+        $data = mysqli_fetch_assoc($query);
+        mysqli_close($GLOBALS['conn']);
+        return $data;
+    }
+ }
