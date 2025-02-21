@@ -63,3 +63,19 @@ if (!function_exists('update_data')) {
 
 }
 
+
+/**
+ * delete data from database
+ * 
+ * @param string $table
+ * @param int $id
+ *   
+ */
+
+ if (!function_exists('delete_data')) {
+    function delete_data(string $table , int $id) {
+        $query = mysqli_query($GLOBALS['conn'] ,"DELETE FROM ".$table." WHERE id = ".$id);
+        mysqli_close($GLOBALS['conn']);
+        return $query;
+    }
+ }
