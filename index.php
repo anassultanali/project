@@ -3,6 +3,6 @@ require_once __DIR__."/includes/app.php";
 
 
 
-$data = fetch_data('users' , 1);
+$data = first_data('users' ,"WHERE email LIKE '%.net%' ");
 
 var_dump($data);

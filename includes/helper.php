@@ -96,3 +96,20 @@ if (!function_exists('update_data')) {
         return $data;
     }
  }
+
+ /**
+ * search for single row from database
+ * 
+ * @param string $table
+ * @param string  $query
+ */
+
+ if (!function_exists('first_data')) {
+    function first_data(string $table , string $query) {
+        $query = mysqli_query($GLOBALS['conn'] ,"SELECT * FROM ".$table." ".$query);
+        $data = mysqli_fetch_assoc($query);
+        mysqli_close($GLOBALS['conn']);
+        return $data;
+    }
+ }
+ 
