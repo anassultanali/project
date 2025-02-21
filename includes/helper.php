@@ -27,7 +27,6 @@ if (!function_exists('db_create')) {
         $id = mysqli_insert_id($GLOBALS['conn']);
         $first = mysqli_query($GLOBALS['conn'],"SELECT * FROM ".$table." WHERE id=".$id);
         $data =  mysqli_fetch_assoc($first);
-        mysqli_close($GLOBALS['conn']);
         return $data;
     }
 }
@@ -56,7 +55,6 @@ if (!function_exists('update_data')) {
         $query = mysqli_query($GLOBALS['conn'],$sql);
         $first = mysqli_query($GLOBALS['conn'],"SELECT * FROM ".$table." WHERE id=".$id);
         $data =  mysqli_fetch_assoc($first);
-        mysqli_close($GLOBALS['conn']);
         return $data;
 
     }
@@ -75,7 +73,6 @@ if (!function_exists('update_data')) {
  if (!function_exists('delete_data')) {
     function delete_data(string $table , int $id) {
         $query = mysqli_query($GLOBALS['conn'] ,"DELETE FROM ".$table." WHERE id = ".$id);
-        mysqli_close($GLOBALS['conn']);
         return $query;
     }
  }
@@ -92,7 +89,6 @@ if (!function_exists('update_data')) {
     function fetch_data(string $table , int $id) {
         $query = mysqli_query($GLOBALS['conn'] ,"SELECT * FROM ".$table." WHERE id = ".$id);
         $data = mysqli_fetch_assoc($query);
-        mysqli_close($GLOBALS['conn']);
         return $data;
     }
  }
@@ -108,8 +104,27 @@ if (!function_exists('update_data')) {
     function first_data(string $table , string $query) {
         $query = mysqli_query($GLOBALS['conn'] ,"SELECT * FROM ".$table." ".$query);
         $data = mysqli_fetch_assoc($query);
-        mysqli_close($GLOBALS['conn']);
         return $data;
     }
  }
+ 
+  /**
+ * search for multiple row from database
+ * 
+ * @param string $table
+ * @param string  $query
+ */
+
+ if (!function_exists('get_data')) {
+    function get_data(string $table , string $query) {
+        $query = mysqli_query($GLOBALS['conn'] ,"SELECT * FROM ".$table." ".$query);
+        $num = mysqli_num_rows($query);
+        return [
+            'query'=> $query,
+            'num'=> $num
+        ];
+    }
+ }
+
+
  
