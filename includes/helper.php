@@ -127,4 +127,37 @@ if (!function_exists('update_data')) {
  }
 
 
- 
+  
+  /**
+ * search for multiple and pagination row from database
+ * 
+ * @param string $table
+ * @param string
+ */
+
+ if (!function_exists('db_pagination')) {
+    function db_pagination(string $table , string $query, int $limit=15 ,string $orderby = 'asc') {
+
+        if (isset($_GET['page']) && is_numeric($_GET['page']) && $_GET['page'] > 0 ) {
+            $current_page = $_GET['page'] -1 ;
+        }else{
+            $current_page = 0 ;
+        }
+
+
+        $query_count = mysqli_query($GLOBALS['conn'] ,"SELECT COUNT(id)  FROM ".$table." ".$query);
+        $count = mysqli_fetch_row($query_count);
+        $total_records = $count[0];
+        
+        $start = $current_page * $limit;
+        $total_page = ceil($total_records / $limit);
+
+        var_dump($total_records);
+        $query = mysqli_query($GLOBALS['conn'] ,"SELECT * FROM ".$table." ".$query." order by id ".$orderby." LIMIT {$start},{$limit}");
+        $num = mysqli_num_rows($query);
+        return [
+            'query'=> $query, 
+            'num'=> $num
+        ];
+    }
+ }
